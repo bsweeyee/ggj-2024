@@ -55,6 +55,10 @@ public class Game : MonoBehaviour
         CurrentState = EGameState.LOAD_IN;        
     }
 
+    public void ResetGame() {
+        CurrentState = EGameState.GAME_END;
+    }
+
     void OnEnterState(EGameState newState, EGameState oldState) {
         switch (newState) {
             case EGameState.LOAD_IN:
@@ -67,16 +71,13 @@ public class Game : MonoBehaviour
             }
             // TODO: run load in animation
             break;
-            case EGameState.GAME_END:
-            // if (score > requiredScore) {
-            //     CurrentSTate = EGameState.PASS;
-            // }
-
+            case EGameState.PLAYING:
             ball.Reset();
             foreach(var pinguin in pinguins) {
                 pinguin.Reset();
             }
-            
+            break;
+            case EGameState.GAME_END:                        
             CurrentState = EGameState.PLAYING;
             break;
             case EGameState.PASS:
