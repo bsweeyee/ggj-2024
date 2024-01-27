@@ -74,9 +74,9 @@ public class Pinguin : MonoBehaviour, ITrigger
             break;
             case EPinguinState.DEATH:
             if (currentDeathAnimationTime < deathTimeInSeconds) {
-                // float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime/deathTimeInSeconds);
-                // transform.eulerAngles = new Vector3(0, 0, euler);                
-                // currentDeathAnimationTime += dt;
+                float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime/deathTimeInSeconds);
+                transform.eulerAngles = new Vector3(0, 0, euler);                
+                currentDeathAnimationTime += dt;
             }            
             break;
         }
@@ -89,12 +89,12 @@ public class Pinguin : MonoBehaviour, ITrigger
     {
         if (CurrentState == EPinguinState.IDLE) {
             CurrentState = EPinguinState.DEATH;
-            // var dot = Vector3.Dot(ball.TravelDirection, Vector3.right);
-            // if (dot >= 0) {
-            //     targetDeathRotation *= 1;
-            // } else {
-            //     targetDeathRotation *= -1;
-            // }                
+            var dot = Vector3.Dot(ball.TravelDirection, Vector3.right);
+            if (dot >= 0) {
+                targetDeathRotation *= 1;
+            } else {
+                targetDeathRotation *= -1;
+            }                
         }        
     }
 

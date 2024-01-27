@@ -140,18 +140,7 @@ public class Ball : MonoBehaviour
             }
 
             var iv = Mathf.InverseLerp(initialPosition.y, finalPosition.y, transform.position.y);
-            transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv);
-                        
-            var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius, hitMasks);                        
-            if (hits.Length > 0) {
-                foreach(var hit in hits) {                    
-                    var trigger = hit.GetComponent<ITrigger>();
-                    if (trigger != null) {
-                        trigger = hit.GetComponentInParent<ITrigger>();
-                    }
-                    trigger.OnHit(this);
-                }
-            }
+            transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv);                                
             break;
             case EBallState.DEATH:
             currentDeathTime += dt;
@@ -164,7 +153,19 @@ public class Ball : MonoBehaviour
 
     public void OnFixedUpdate(float dt) {        
         switch (currentState) {
-            case EBallState.LAUNCH:
+            case EBallState.LAUNCH:                        
+            var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * transform.localScale.magnitude, hitMasks);                        
+            if (hits.Length > 0) {
+                foreach(var hit in hits) {                                        
+                    var trigger = hit.GetComponent<ITrigger>();
+                    if (trigger != null) {
+                        Debug.Log(circleCollider.radius + ", " + circleCollider.radius * transform.localScale.magnitude);
+                        trigger = hit.GetComponentInParent<ITrigger>();
+                    }
+                    trigger.OnHit(this);
+                }
+            }
+
             transform.position += travelDirection * power * dt;
             break;
         }

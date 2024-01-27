@@ -275,7 +275,7 @@ MonoBehaviour:
   aimDirectionChangePerSecond: 80
   launchDirectionCorrectionPerSecond: 1
   rateOfPowerChangePerSecond: 10
-  maxPower: 10
+  maxPower: 1
   deathTimeInSeconds: 0.5
   power: 0
   currentState: 0
