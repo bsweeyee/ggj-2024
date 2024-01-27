@@ -10,7 +10,7 @@ public enum EGameState {
     PLAYING,
     LOAD_IN,
     LOAD_OUT,
-    RESET,
+    GAME_END,
     FAIL,
     PASS
 }
@@ -50,10 +50,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    [RuntimeInitializeOnLoadMethod]
-    void Initialize() {
+    public void Initialize() {
         DontDestroyOnLoad(Game.Instance.gameObject);        
-        CurrentState = EGameState.PLAYING;        
+        CurrentState = EGameState.LOAD_IN;        
     }
 
     void OnEnterState(EGameState newState, EGameState oldState) {
@@ -68,16 +67,28 @@ public class Game : MonoBehaviour
             }
             // TODO: run load in animation
             break;
-            case EGameState.RESET:
+            case EGameState.GAME_END:
+            // if (score > requiredScore) {
+            //     CurrentSTate = EGameState.PASS;
+            // }
 
-            // TODO: play animation when there is time
+            ball.Reset();
+            foreach(var pinguin in pinguins) {
+                pinguin.Reset();
+            }
+            
             CurrentState = EGameState.PLAYING;
+            break;
+            case EGameState.PASS:
+            // TODO: popup the next level ui
+            break;
+            case EGameState.FAIL:
+            // TODO: popup the next level ui
             break;
         }
     }
 
-    void OnExitState(EGameState newState, EGameState oldState) {
-        
+    void OnExitState(EGameState newState, EGameState oldState) {        
     }
 
     void Update() {

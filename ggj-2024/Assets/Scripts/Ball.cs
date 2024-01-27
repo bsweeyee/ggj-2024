@@ -17,6 +17,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private Vector3 initialPosition;
     [SerializeField] private Vector3 finalPosition;
     [SerializeField] private LayerMask hitMasks;
+    [SerializeField] private ContactFilter2D filter;
 
     [Header("Scale")]    
     [SerializeField] private AnimationCurve scaleReductionCurve;
@@ -132,9 +133,9 @@ public class Ball : MonoBehaviour
             }
 
             var iv = Mathf.InverseLerp(initialPosition.y, finalPosition.y, transform.position.y);
-            ballSprite.transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv);
-
-            var hits = Physics.OverlapSphere(transform.position, circleCollider.radius, hitMasks);
+            transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv);
+                        
+            var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius, hitMasks);                        
             if (hits.Length > 0) {
                 foreach(var hit in hits) {
                     hit.GetComponent<ITrigger>().OnHit(this);
@@ -143,8 +144,8 @@ public class Ball : MonoBehaviour
             break;
             case EBallState.DEATH:
             currentDeathTime += dt;
-            if (currentDeathTime > deathTimeInSeconds) {
-                Game.Instance.CurrentState = EGameState.PLAYING;
+            if (currentDeathTime > deathTimeInSeconds) {                
+                Game.Instance.CurrentState = EGameState.GAME_END;
             }
             break;
         }     
@@ -162,6 +163,12 @@ public class Ball : MonoBehaviour
         switch(newState) {
             case EBallState.AIM:
             transform.position = initialPosition;
+            arrow.transform.eulerAngles = Vector3.zero;
+
+            travelDirection = Vector3.up;
+            leftTravelNormalized = 0;
+            rightTravelNormalized = 0;
+            power = 0;
             
             arrowMask.transform.localScale = new Vector3(1, 0, 1);                        
             arrow.gameObject.SetActive(true);
@@ -174,6 +181,7 @@ public class Ball : MonoBehaviour
             break;
             case EBallState.DEATH:
             animator.SetBool("IsDeath", true);
+
             break;
         }
     }
@@ -182,10 +190,11 @@ public class Ball : MonoBehaviour
         switch (oldState) {
             case EBallState.AIM:
             break;
-            case EBallState.LAUNCH:
-            ballSprite.transform.localScale = Vector3.one;
+            case EBallState.LAUNCH:            
             break;
             case EBallState.DEATH:
+            currentDeathTime = 0;
+            transform.localScale = Vector3.one;
             animator.SetBool("IsDeath", false);
             break;
         }
