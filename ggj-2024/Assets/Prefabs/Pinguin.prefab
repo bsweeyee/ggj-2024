@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6091667814917323385}
   - component: {fileID: 960034130898821418}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1256260395251140008}
   - component: {fileID: 7899128521506474218}
-  m_Layer: 0
+  - component: {fileID: 6879862790032011620}
+  - component: {fileID: 271903351401790708}
+  m_Layer: 6
   m_Name: Pinguin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +117,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6091667814917323385}
-  - {fileID: 8911056178125467855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7899128521506474218
@@ -139,45 +140,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &4321067077334988521
-GameObject:
+--- !u!114 &6879862790032011620
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8911056178125467855}
-  - component: {fileID: 1286739656999653002}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8911056178125467855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4321067077334988521}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1256260395251140008}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1286739656999653002
+  m_GameObject: {fileID: 3383883084021846875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174ded92062b94c00a18015ae2c17268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialLocalPosiiton: {x: 0, y: 0, z: 0}
+  initialRotation: 0
+  targetDeathRotation: 180
+  deathTimeInSeconds: 0.1
+  popinTimeInSeconds: 0.1
+  currentState: 0
+--- !u!58 &271903351401790708
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4321067077334988521}
+  m_GameObject: {fileID: 3383883084021846875}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
