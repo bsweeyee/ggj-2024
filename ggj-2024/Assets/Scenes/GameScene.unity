@@ -1367,6 +1367,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pinguin.001
       objectReference: {fileID: 0}
+    - target: {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      propertyPath: initialPosiiton.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      propertyPath: initialLocalPosiiton.y
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2049,6 +2057,14 @@ PrefabInstance:
     - target: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_Name
       value: Pinguin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      propertyPath: initialPosiiton.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      propertyPath: initialLocalPosiiton.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum EBallState {
@@ -59,6 +60,12 @@ public class Ball : MonoBehaviour
             OnExitState(value, oldState);
             currentState = value; 
             OnEnterState(currentState, oldState);
+        }
+    }
+
+    public Vector3 TravelDirection {
+        get {
+            return travelDirection;
         }
     }
 
@@ -137,8 +144,12 @@ public class Ball : MonoBehaviour
                         
             var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius, hitMasks);                        
             if (hits.Length > 0) {
-                foreach(var hit in hits) {
-                    hit.GetComponent<ITrigger>().OnHit(this);
+                foreach(var hit in hits) {                    
+                    var trigger = hit.GetComponent<ITrigger>();
+                    if (trigger != null) {
+                        trigger = hit.GetComponentInParent<ITrigger>();
+                    }
+                    trigger.OnHit(this);
                 }
             }
             break;
@@ -177,6 +188,10 @@ public class Ball : MonoBehaviour
             break;
 
             case EBallState.LAUNCH:
+            var launch = FindObjectsOfType<MonoBehaviour>().OfType<ILaunch>().ToArray();
+            foreach(var l in launch) {
+                l.OnLaunch(this);
+            }
             arrow.gameObject.SetActive(false);
             break;
             case EBallState.DEATH:
