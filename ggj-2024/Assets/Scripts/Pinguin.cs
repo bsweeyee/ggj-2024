@@ -42,15 +42,15 @@ public class Pinguin : MonoBehaviour, ITrigger
     }
 
     public void Reset() {
-
+        animator.SetBool("IsDeath", false);
+        animator.SetBool("PopIn", true);
     }
 
     public void OnUpdate(float dt) {
         switch (currentState) {
             case EPinguinState.DEATH:
-            if (currentDeathTime > deathTimeInSeconds) {
-
-            }
+            // if (currentDeathTime > deathTimeInSeconds) {
+            // }
             break;
         }
     }
@@ -59,8 +59,8 @@ public class Pinguin : MonoBehaviour, ITrigger
     }
 
     void ITrigger.OnHit(Ball ball)
-    {
-                
+    {        
+        CurrentState = EPinguinState.DEATH;                
     }
 
     void OnEnterState(EPinguinState newState, EPinguinState oldState) {
