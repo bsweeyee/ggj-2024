@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -58,7 +58,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
-      insertIndex: 2
+      insertIndex: -1
       addedObject: {fileID: -2708855775660996740}
   m_SourcePrefab: {fileID: 100100000, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
 --- !u!1 &8615103751072033478 stripped
@@ -80,14 +80,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialLocalPosiiton: {x: 0, y: 0, z: 0}
   initialRotation: 0
-  targetDeathRotation: 0
-  initialHitStrength: 5
+  targetDeathRotation: 720
+  initialHitStrength: 10
   hitStrengthDecay:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  deathTimeInSeconds: 2
-  popinTimeInSeconds: 0.5
+  deathTimeInSeconds: 1
+  popinTimeInSeconds: 0.1
   currentState: 0
