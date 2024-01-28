@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class StartMenuUI : MonoBehaviour
 {
     [SerializeField] private string nextLevel;
     public void StartLevel()

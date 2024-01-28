@@ -39,6 +39,7 @@ public class Pinguin : MonoBehaviour, ITrigger
     private float currentPopInAnimationTime;
     private Vector3 hitDirection;
 
+    private Game game;
     public EPinguinState CurrentState {
         get { return currentState; }
         set {
@@ -50,11 +51,12 @@ public class Pinguin : MonoBehaviour, ITrigger
     }    
 
     public void Initialize(Game game) {
+        this.game = game;
         animator = GetComponent<Animator>();
         initialLocalPosiiton = transform.localPosition; 
         Vector3 euler = new Vector3 (0, 0, initialRotation);
         transform.eulerAngles  = euler;
-        CurrentState = EPinguinState.IDLE;        
+        CurrentState = EPinguinState.IDLE;                
     }
 
     public void Reset() {
@@ -74,7 +76,7 @@ public class Pinguin : MonoBehaviour, ITrigger
         switch (currentState) {
             case EPinguinState.IDLE:
             if (currentPopInAnimationTime > popinTimeInSeconds) {
-                animator.SetBool("IsPopIn", false);
+                animator.SetBool("IsPopIn", false);                
             }
             else {
                 currentPopInAnimationTime += dt;
@@ -85,7 +87,7 @@ public class Pinguin : MonoBehaviour, ITrigger
                 float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime/deathTimeInSeconds);
                 transform.eulerAngles = new Vector3(0, 0, euler);                
                 currentDeathAnimationTime += dt;
-                transform.localPosition += hitDirection * hitStrengthDecay.Evaluate(currentDeathAnimationTime / deathTimeInSeconds) * initialHitStrength * dt;
+                transform.localPosition += hitDirection * hitStrengthDecay.Evaluate(currentDeathAnimationTime / deathTimeInSeconds) * initialHitStrength * dt;                
             }            
             break;
         }
@@ -111,6 +113,7 @@ public class Pinguin : MonoBehaviour, ITrigger
     void OnEnterState(EPinguinState newState, EPinguinState oldState) {
         switch(newState) {
             case EPinguinState.DEATH:
+            game.CurrentScore += 1;
             animator.SetBool("IsDeath", true);
             break;
         }
