@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public enum EBallState {
@@ -17,6 +18,9 @@ public class Ball : MonoBehaviour
     [Header("Initial")]
     [SerializeField] private Vector3 initialPosition;
     [SerializeField] private Vector3 finalPosition;
+    [SerializeField] private float initialRotation;
+    [SerializeField] private float targetDeathRotation;    
+    [SerializeField] private AnimationCurve hitStrengthDecay;
     [SerializeField] private LayerMask hitMasks;
     [SerializeField] private ContactFilter2D filter;
 
@@ -30,6 +34,7 @@ public class Ball : MonoBehaviour
     [Header("Power")]
     [SerializeField] private float rateOfPowerChangePerSecond = 1f;
     [SerializeField] private float maxPower = 2;
+    [SerializeField] private float rollRate = 10; 
 
     [Header("Death")]
      [SerializeField] private float deathTimeInSeconds = 0.5f;
@@ -45,6 +50,7 @@ public class Ball : MonoBehaviour
 
     private Vector3 travelDirection;
     private Vector3 cacheTravelDirection;
+    private float cacheRotation;
     private float leftTravelNormalized;
     private float rightTravelNormalized;
 
@@ -139,24 +145,31 @@ public class Ball : MonoBehaviour
                 rightTravelNormalized = 0;
             }
 
+            // we find the 0-1 value of initial and final position to determine how much to scale based on curve
             var iv = Mathf.InverseLerp(initialPosition.y, finalPosition.y, transform.position.y);
-            transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv);
-                        
-            var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius, hitMasks);                        
-            if (hits.Length > 0) {
-                foreach(var hit in hits) {                    
-                    var trigger = hit.GetComponent<ITrigger>();
-                    if (trigger != null) {
-                        trigger = hit.GetComponentInParent<ITrigger>();
-                    }
-                    trigger.OnHit(this);
-                }
-            }
+            transform.localScale =  Vector3.one * scaleReductionCurve.Evaluate(iv); 
+
+            var isRightSide = Vector3.Dot(travelDirection, Vector3.right);
+            if (isRightSide > 0) {
+                var roll = transform.eulerAngles.z - (rollRate * dt * power);                
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, roll);
+            } else {
+                var roll = transform.eulerAngles.z + (rollRate * dt * power);                
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, roll);
+            }            
+
             break;
             case EBallState.DEATH:
             currentDeathTime += dt;
             if (currentDeathTime > deathTimeInSeconds) {                
-                Game.Instance.CurrentState = EGameState.GAME_END;
+                Game.Instance.CurrentState = EGameState.GAME_END;                
+            } else {
+                var isRight = Vector3.Dot(travelDirection, Vector3.right);
+
+                float euler = Mathf.Lerp(cacheRotation, -Mathf.Sign(isRight) * targetDeathRotation * power, currentDeathTime/deathTimeInSeconds);
+                transform.eulerAngles = new Vector3(0, 0, euler);
+                var travelPower = Mathf.Clamp(power * 2, 0, 20);                                
+                transform.position += travelDirection * hitStrengthDecay.Evaluate(currentDeathTime / deathTimeInSeconds) * travelPower * dt;
             }
             break;
         }     
@@ -164,7 +177,18 @@ public class Ball : MonoBehaviour
 
     public void OnFixedUpdate(float dt) {        
         switch (currentState) {
-            case EBallState.LAUNCH:
+            case EBallState.LAUNCH:                        
+            var hits = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * transform.localScale.magnitude, hitMasks);                        
+            if (hits.Length > 0) {
+                foreach(var hit in hits) {                                        
+                    var trigger = hit.GetComponent<ITrigger>();
+                    if (trigger != null) {                        
+                        trigger = hit.GetComponentInParent<ITrigger>();
+                    }
+                    trigger.OnHit(this);
+                }
+            }
+
             transform.position += travelDirection * power * dt;
             break;
         }
@@ -174,6 +198,8 @@ public class Ball : MonoBehaviour
         switch(newState) {
             case EBallState.AIM:
             transform.position = initialPosition;
+            transform.eulerAngles = new Vector3(0, 0, initialRotation);
+
             arrow.transform.eulerAngles = Vector3.zero;
 
             travelDirection = Vector3.up;
@@ -196,7 +222,7 @@ public class Ball : MonoBehaviour
             break;
             case EBallState.DEATH:
             animator.SetBool("IsDeath", true);
-
+            cacheRotation = transform.eulerAngles.z;
             break;
         }
     }
