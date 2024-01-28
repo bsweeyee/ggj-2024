@@ -34,6 +34,12 @@ public class Game : MonoBehaviour
 
     private static Game instance;
 
+    public int SceneCount {
+        get {  
+            return scenes.Length;
+        }
+    }
+
     public EGameState CurrentState {
         get { return currentState; }
         set {
