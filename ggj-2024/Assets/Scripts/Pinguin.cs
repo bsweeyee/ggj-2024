@@ -29,6 +29,7 @@ public class Pinguin : MonoBehaviour, ITrigger
     [Header("Death")]
     [SerializeField] private float deathTimeInSeconds = 2;
     [SerializeField] private float popinTimeInSeconds = 0.5f;
+    public bool deathRotation = true;
 
     protected Animator animator;
 
@@ -83,12 +84,15 @@ public class Pinguin : MonoBehaviour, ITrigger
             }            
             break;
             case EPinguinState.DEATH:
-            if (currentDeathAnimationTime < deathTimeInSeconds) {
-                float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime/deathTimeInSeconds);
-                transform.eulerAngles = new Vector3(0, 0, euler);                
-                currentDeathAnimationTime += dt;
-                transform.localPosition += hitDirection * hitStrengthDecay.Evaluate(currentDeathAnimationTime / deathTimeInSeconds) * initialHitStrength * dt;                
-            }            
+            if (currentDeathAnimationTime < deathTimeInSeconds && deathRotation) {
+                    if (deathRotation)
+                    {
+                        float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime / deathTimeInSeconds);
+                        transform.eulerAngles = new Vector3(0, 0, euler);
+                        transform.localPosition += hitDirection * hitStrengthDecay.Evaluate(currentDeathAnimationTime / deathTimeInSeconds) * initialHitStrength * dt;
+                    }
+                    currentDeathAnimationTime += dt;
+                }            
             break;
         }
     }
