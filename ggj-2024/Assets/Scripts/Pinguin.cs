@@ -23,6 +23,8 @@ public class Pinguin : MonoBehaviour, ITrigger
     [SerializeField] private Vector3 initialLocalPosiiton;
     [SerializeField] private float initialRotation;
     [SerializeField] private float targetDeathRotation;
+    [SerializeField] private float initialHitStrength = 5;
+    [SerializeField] private AnimationCurve hitStrengthDecay;
     
     [Header("Death")]
     [SerializeField] private float deathTimeInSeconds = 2;
@@ -35,6 +37,7 @@ public class Pinguin : MonoBehaviour, ITrigger
 
     private float currentDeathAnimationTime;
     private float currentPopInAnimationTime;
+    private Vector3 hitDirection;
 
     public EPinguinState CurrentState {
         get { return currentState; }
@@ -48,7 +51,7 @@ public class Pinguin : MonoBehaviour, ITrigger
 
     public void Initialize(Game game) {
         animator = GetComponent<Animator>();
-        transform.localPosition = initialLocalPosiiton;
+        initialLocalPosiiton = transform.localPosition; 
         Vector3 euler = new Vector3 (0, 0, initialRotation);
         transform.eulerAngles  = euler;
         CurrentState = EPinguinState.IDLE;        
@@ -57,7 +60,12 @@ public class Pinguin : MonoBehaviour, ITrigger
     public void Reset() {
         animator.SetBool("IsDeath", false);
         animator.SetBool("IsPopIn", true);
+
+        currentPopInAnimationTime = 0;
+
+        transform.localPosition = initialLocalPosiiton;
         Vector3 euler = new Vector3 (0, 0, initialRotation);
+        
         transform.eulerAngles  = euler;        
         CurrentState = EPinguinState.IDLE;
     }
@@ -77,6 +85,7 @@ public class Pinguin : MonoBehaviour, ITrigger
                 float euler = Mathf.Lerp(initialRotation, targetDeathRotation, currentDeathAnimationTime/deathTimeInSeconds);
                 transform.eulerAngles = new Vector3(0, 0, euler);                
                 currentDeathAnimationTime += dt;
+                transform.localPosition += hitDirection * hitStrengthDecay.Evaluate(currentDeathAnimationTime / deathTimeInSeconds) * initialHitStrength * dt;
             }            
             break;
         }
@@ -89,7 +98,8 @@ public class Pinguin : MonoBehaviour, ITrigger
     {
         if (CurrentState == EPinguinState.IDLE) {
             CurrentState = EPinguinState.DEATH;
-            var dot = Vector3.Dot(ball.TravelDirection, Vector3.right);
+            hitDirection = (transform.position - ball.transform.position).normalized;
+            var dot = Vector3.Dot(Vector3.Cross(ball.TravelDirection, hitDirection), Vector3.forward);            
             if (dot >= 0) {
                 targetDeathRotation *= 1;
             } else {
