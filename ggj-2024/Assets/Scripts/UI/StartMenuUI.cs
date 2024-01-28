@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuUI : MonoBehaviour
 {
-    [SerializeField] private string nextLevel;
+    [SerializeField] private int nextLevel;
     public void StartLevel()
     {
         SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);

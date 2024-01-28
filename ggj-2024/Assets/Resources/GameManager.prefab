@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb8e4d37889e4f3d916175c528ec0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainScene: MainMenu
+  mainScene: HomePage Scene
   creditScene: Credit
   scenes:
   - Level 1

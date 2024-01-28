@@ -6,8 +6,7 @@ public class Init : MonoBehaviour
 {
     [RuntimeInitializeOnLoadMethod]
     public static void InitGame() {
-        if (FindObjectOfType<Game>() == null) {
-            Debug.Log("here");
+        if (FindObjectOfType<Game>() == null) {            
             var game = Resources.Load<Game>("GameManager");
             Instantiate(game);                    
         }

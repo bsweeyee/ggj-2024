@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PenguinJumping : Pinguin, ILaunch
 {
+	
 	public void OnLaunch(Ball ball)
 	{
 		Jump();
@@ -11,8 +12,6 @@ public class PenguinJumping : Pinguin, ILaunch
 	
 	void Jump()
 	{
-		Debug.Log("JUMP!");
-		
-		
+		animator.SetTrigger("Jump");
 	}
 }

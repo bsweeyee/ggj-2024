@@ -238,7 +238,7 @@ public class AudioManager : MonoBehaviour
         }
     }     
 
-    void PlaySceneAudio(Scene loadedScene, LoadSceneMode sceneMode) {
+    void PlaySceneAudio(Scene loadedScene, LoadSceneMode sceneMode) {        
         Initialize();                        
         if (loadedScene.buildIndex == 0) {
             foreach(var imm in m_initialMainMenuAudio) {
@@ -250,7 +250,7 @@ public class AudioManager : MonoBehaviour
                 Play(igs.name, defaultFadeInTime);
             }                         
         }
-        else if (loadedScene.buildIndex == 2) {
+        else if (loadedScene.buildIndex == Game.Instance.SceneCount + 1) {
             foreach(var ica in m_initialCreditAudio) {                
                 Play(ica.name, defaultFadeInTime);
             }                         
@@ -258,7 +258,12 @@ public class AudioManager : MonoBehaviour
     }
 
     void StopSceneAudio(Scene unloaded) {
-        Stop(EAudioType.ALL);
+        if (unloaded.buildIndex >= 1 && unloaded.buildIndex < Game.Instance.SceneCount + 2) {
+            Stop(EAudioType.SFX);
+            Stop(EAudioType.AMBIENT);
+        } else {
+            Stop(EAudioType.ALL);
+        }
     }    
 
     public void Play(string name, float fadeInTime = -1, float startTime = 0) {
