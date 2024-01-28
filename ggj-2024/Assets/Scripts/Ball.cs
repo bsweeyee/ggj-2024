@@ -182,10 +182,16 @@ public class Ball : MonoBehaviour
             if (hits.Length > 0) {
                 foreach(var hit in hits) {                                        
                     var trigger = hit.GetComponent<ITrigger>();
-                    if (trigger != null) {                        
+                    if (trigger == null) {
                         trigger = hit.GetComponentInParent<ITrigger>();
                     }
-                    trigger.OnHit(this);
+                    
+                    if (trigger != null) {
+                        trigger.OnHit(this);
+                    }
+                    else {
+                        Debug.LogError("no trigger found");
+                    }                                    
                 }
             }
 
