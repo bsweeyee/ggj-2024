@@ -50,10 +50,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_Name
-      value: Pinguin
+      value: Pinguin Jumping
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -2708855775660996740}
   m_SourcePrefab: {fileID: 100100000, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+--- !u!1 &8615103751072033478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+  m_PrefabInstance: {fileID: 6447756684627278237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2708855775660996740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615103751072033478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540c3eea9ab7ea9469ffd3d14d52b714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialLocalPosiiton: {x: 0, y: 0, z: 0}
+  initialRotation: 0
+  targetDeathRotation: 0
+  initialHitStrength: 5
+  hitStrengthDecay:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deathTimeInSeconds: 2
+  popinTimeInSeconds: 0.5
+  currentState: 0
