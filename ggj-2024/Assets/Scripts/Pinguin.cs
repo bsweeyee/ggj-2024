@@ -106,7 +106,9 @@ public class Pinguin : MonoBehaviour, ITrigger
                 targetDeathRotation *= 1;
             } else {
                 targetDeathRotation *= -1;
-            }                
+            }
+            var hitSound = Random.Range(1, 4);
+            AudioManager.Instance.Play("Penguin_hit_sound_0" + hitSound.ToString());                
         }        
     }
 

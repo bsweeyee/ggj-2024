@@ -111,7 +111,8 @@ public class Ball : MonoBehaviour
             case EBallState.CHARGE:
             if (Input.GetKey(KeyCode.Space)) {
                 var newPower = power + (rateOfPowerChangePerSecond * dt);
-                power = Mathf.Lerp(0, maxPower, newPower / maxPower);                
+                // power = Mathf.Lerp(1, maxPower, newPower / maxPower);
+                power = newPower;                
 
                 var normalizedScale = (newPower / maxPower);
                 var newScale = new Vector3(1, normalizedScale, 1);
@@ -211,7 +212,7 @@ public class Ball : MonoBehaviour
             travelDirection = Vector3.up;
             leftTravelNormalized = 0;
             rightTravelNormalized = 0;
-            power = 0;
+            power = 1;
             
             arrowMask.transform.localScale = new Vector3(1, 0, 1);                        
             arrow.gameObject.SetActive(true);
