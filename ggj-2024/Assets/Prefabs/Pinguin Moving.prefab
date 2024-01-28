@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.22
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,10 +50,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_Name
-      value: Pinguin
+      value: Pinguin Moving
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5086159669168076742}
   m_SourcePrefab: {fileID: 100100000, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+--- !u!1 &8398210900028169665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
+  m_PrefabInstance: {fileID: 6519391391404871322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5086159669168076742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398210900028169665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e60e4902c3e1b4ea43b448f6ad26aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialLocalPosiiton: {x: 0, y: 0, z: 0}
+  initialRotation: 0
+  targetDeathRotation: 750
+  initialHitStrength: 10
+  hitStrengthDecay:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deathTimeInSeconds: 1
+  popinTimeInSeconds: 0.1
+  deathRotation: 0
+  currentState: 0
+  jumpingDirection: 0
