@@ -30,7 +30,7 @@ public class Pinguin : MonoBehaviour, ITrigger
     [SerializeField] private float deathTimeInSeconds = 2;
     [SerializeField] private float popinTimeInSeconds = 0.5f;
 
-    private Animator animator;
+    protected Animator animator;
 
     [Header("Runtime")]
     [SerializeField] private EPinguinState currentState;
