@@ -8,6 +8,7 @@ public class StartMenuUI : MonoBehaviour
     [SerializeField] private int nextLevel;
     public void StartLevel()
     {
+        Debug.Log(nextLevel);
         SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);
     }
 
