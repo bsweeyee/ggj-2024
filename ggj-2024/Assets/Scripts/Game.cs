@@ -12,7 +12,8 @@ public enum EGameState {
     LOAD_OUT,
     GAME_END,
     FAIL,
-    PASS
+    PASS,
+    CREDIT
 }
 
 public class Game : MonoBehaviour
@@ -91,6 +92,13 @@ public class Game : MonoBehaviour
     void OnEnterState(EGameState newState, EGameState oldState) {
         switch (newState) {
             case EGameState.LOAD_IN:
+            if (SceneManager.GetActiveScene().name == mainScene) {
+                CurrentState = EGameState.START;
+            }
+            if (SceneManager.GetActiveScene().name == creditScene) {
+                CurrentState = EGameState.CREDIT;
+            }
+
             uiManager = FindObjectOfType<UIManager>();
             uiManager.Initialize(this);
             
