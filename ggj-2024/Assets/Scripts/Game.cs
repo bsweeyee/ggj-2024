@@ -94,9 +94,11 @@ public class Game : MonoBehaviour
             case EGameState.LOAD_IN:
             if (SceneManager.GetActiveScene().name == mainScene) {
                 CurrentState = EGameState.START;
+                return;
             }
             if (SceneManager.GetActiveScene().name == creditScene) {
                 CurrentState = EGameState.CREDIT;
+                return;
             }
 
             uiManager = FindObjectOfType<UIManager>();
