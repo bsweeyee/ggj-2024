@@ -225,6 +225,7 @@ public class Ball : MonoBehaviour
             foreach(var l in launch) {
                 l.OnLaunch(this);
             }
+            AudioManager.Instance.Play("Ball_rolling");
             arrow.gameObject.SetActive(false);
             break;
             case EBallState.DEATH:
@@ -238,7 +239,8 @@ public class Ball : MonoBehaviour
         switch (oldState) {
             case EBallState.AIM:
             break;
-            case EBallState.LAUNCH:            
+            case EBallState.LAUNCH:
+            AudioManager.Instance.Stop("Ball_rolling");            
             break;
             case EBallState.DEATH:
             currentDeathTime = 0;
