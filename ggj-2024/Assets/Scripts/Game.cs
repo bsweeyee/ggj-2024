@@ -96,13 +96,14 @@ public class Game : MonoBehaviour
     }
 
     void OnEnterState(EGameState newState, EGameState oldState) {
-        switch (newState) {
+        switch (newState) {            
             case EGameState.LOAD_IN:
             if (SceneManager.GetActiveScene().name == mainScene) {
+                currentSceneIdx = 0;
                 CurrentState = EGameState.START;
                 return;
             }
-            if (SceneManager.GetActiveScene().name == creditScene) {
+            if (SceneManager.GetActiveScene().name == creditScene) {                
                 CurrentState = EGameState.CREDIT;
                 return;
             }
@@ -138,7 +139,8 @@ public class Game : MonoBehaviour
             case EGameState.PASS:
             // TODO: popup the next level ui
             currentSceneIdx += 1;
-            if (currentSceneIdx < scenes.Length - 1) {
+            Debug.Log(currentSceneIdx + ", " + scenes.Length);            
+            if (currentSceneIdx < scenes.Length) {
                 SceneManager.LoadScene(scenes[currentSceneIdx]);
             }
             else {

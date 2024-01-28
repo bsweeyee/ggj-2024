@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainScene: HomePage Scene
-  creditScene: Credit
+  creditScene: Credits
   scenes:
   - Level 1
   - Level 2

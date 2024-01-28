@@ -258,7 +258,8 @@ public class AudioManager : MonoBehaviour
     }
 
     void StopSceneAudio(Scene unloaded) {
-        if (unloaded.buildIndex >= 1 && unloaded.buildIndex < Game.Instance.SceneCount + 2) {
+        Debug.Log(unloaded.buildIndex + ", " + (Game.Instance.SceneCount + 1));
+        if (unloaded.buildIndex >= 1 && unloaded.buildIndex < Game.Instance.SceneCount + 1) {
             Stop(EAudioType.SFX);
             Stop(EAudioType.AMBIENT);
         } else {
