@@ -682,7 +682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1256260395251140008, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -719,10 +719,6 @@ PrefabInstance:
     - target: {fileID: 3383883084021846875, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: m_Name
       value: Pinguin
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091667814917323385, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.06
       objectReference: {fileID: 0}
     - target: {fileID: 6879862790032011620, guid: 18eeb59c566974836bff4e8c4b27ea8e, type: 3}
       propertyPath: initialPosiiton.y
